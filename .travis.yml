@@ -1,0 +1,19 @@
+sudo: required
+
+install:
+  - sudo apt-get update
+  - sudo apt-get install expect
+  - npm install -g particle-cli
+
+before_script:
+  - ./particle-cli-login.sh $EMAIL $PASS
+
+script:
+  - particle compile photon firmware --saveTo photon_firmware.bin
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: particle flash $DEVICE_ID photon_firmware.bin
+  on:
+    branch: master
