@@ -16,7 +16,7 @@ int RELAY4 = D6;
 
 int STATES[] = {0, 0, 0, 0};
 
-int get_relay_number(String command)
+int getRelayNumber(String command)
 {
     // parse the relay number
     int relayNumber = command.charAt(1) - '0';
@@ -38,7 +38,7 @@ int relayControl(String command)
 {
     int relayState = 0;
     // parse the relay number
-    int relayNumber = get_relay_number(command);
+    int relayNumber = getRelayNumber(command);
     if (relayNumber == -1) return -1;
 
     // find out the state of the relay
@@ -50,7 +50,7 @@ int relayControl(String command)
     digitalWrite(relayNumber+2, relayState);
 
     // update states variable
-    STATES[relayNumber-1] = relayState
+    STATES[relayNumber-1] = relayState;
 
     return 1;
 }
@@ -67,7 +67,7 @@ curl https://api.particle.io/v1/devices/0123456789abcdef/state \
 int relayState(String args)
 {
     // parse the relay number
-    int relayNumber = get_relay_number(command)
+    int relayNumber = getRelayNumber(args);
     if (relayNumber == -1) return -1;
 
     return STATES[relayNumber];
