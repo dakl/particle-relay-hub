@@ -70,7 +70,7 @@ int relayState(String args)
     int relayNumber = getRelayNumber(args);
     if (relayNumber == -1) return -1;
 
-    return STATES[relayNumber];
+    return STATES[relayNumber-1];
 }
 
 void ready() {
