@@ -16,10 +16,12 @@ int RELAY4 = D6;
 
 int STATES[] = {0, 0, 0, 0};
 
+int ttl = 16777215;
+
 void reset_handler()
 {
     // tell the world what we are doing
-    Particle.publish("reset", "going down for reboot NOW!");
+    Particle.publish("reset", "going down for reboot NOW!", ttl);
 }
 
 
@@ -83,12 +85,12 @@ int relayState(String args)
 void ready() {
     // code for displaying a notification that the system is ready
     // for example blinking each thing once
-    Particle.publish("booted", "particle-relay-hub is ready.");
+    Particle.publish("booted", "particle-relay-hub is ready.", ttl);
 }
 
 void setup()
 {
-    Particle.publish("booting", "particle-relay-hub is setting up.");
+    Particle.publish("booting", "particle-relay-hub is setting up.", ttl);
 
     // register the reset handler
     System.on(reset, reset_handler);
