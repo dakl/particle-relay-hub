@@ -16,6 +16,13 @@ int RELAY4 = D6;
 
 int STATES[] = {0, 0, 0, 0};
 
+void reset_handler()
+{
+    // tell the world what we are doing
+    Particle.publish("reset", "going down for reboot NOW!");
+}
+
+
 int getRelayNumber(String command)
 {
     // parse the relay number
@@ -76,15 +83,22 @@ int relayState(String args)
 void ready() {
     // code for displaying a notification that the system is ready
     // for example blinking each thing once
+    Particle.publish("booted", "particle-relay-hub is ready.");
 }
 
 void setup()
 {
+    Particle.publish("booting", "particle-relay-hub is setting up.");
+
+    // register the reset handler
+    System.on(reset, reset_handler);
+
     //Initilize the relay control pins as output
     pinMode(RELAY1, OUTPUT);
     pinMode(RELAY2, OUTPUT);
     pinMode(RELAY3, OUTPUT);
     pinMode(RELAY4, OUTPUT);
+
     // Initialize all relays to an OFF state
     digitalWrite(RELAY1, LOW);
     digitalWrite(RELAY2, LOW);
