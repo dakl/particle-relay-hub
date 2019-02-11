@@ -9,11 +9,11 @@ before_script:
   - ./particle-cli-login.sh $EMAIL $PASS
 
 script:
-  - particle compile photon firmware --saveTo photon_firmware.bin
+  - make build
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: particle flash $DEVICE_ID photon_firmware.bin
+  script: make flash
   on:
     branch: master

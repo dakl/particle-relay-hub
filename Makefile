@@ -5,7 +5,7 @@ login:
 	particle login
 
 build:
-	particle compile photon ./firmware/ --saveTo photon_firmware.bin
+	particle compile photon ./firmware/ --saveTo firmware.bin
 
 flash:
 	particle flash ${RELAY_HUB_DEVICE_ID} firmware.bin
