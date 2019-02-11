@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/dakl/particle-relay-hub.svg?branch=master)](https://travis-ci.org/dakl/particle-relay-hub)
 
-Particle-controlled relay board (https://docs.particle.io/datasheets/kits-and-accessories/particle-shields/#relay-shield) hooked up to four power plugs, with http-endpoints.
+Particle-controlled relay board (https://docs.particle.io/datasheets/kits-and-accessories/particle-shields/#relay-shield) hooked up to four power plugs, controlled by events on several MQTT topics.
 
 The four power logs can be hooked up to arbitary stuff, such as various lamps.
 
