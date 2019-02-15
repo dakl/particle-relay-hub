@@ -23,11 +23,6 @@ MQTT client("worker0", 1883, callback);
 char *COMMANDS_TOPICS = "commands/relay/#";
 char *EVENTS_TOPIC_TEMPLATE = "events/relay/";
 
-int RELAY1 = D3;
-int RELAY2 = D4;
-int RELAY3 = D5;
-int RELAY4 = D6;
-
 int PINS[] = {D3, D4, D5, D6};
 int STATES[] = {0, 0, 0, 0};
 
@@ -38,8 +33,6 @@ void callback(char *_topic, byte *payload, unsigned int length)
     char p[length + 1];
     memcpy(p, payload, length);
     p[length] = NULL;
-
-    Particle.publish("event_callback", "handing payload: " + String(p), ttl);
 
     String topic = String(_topic);
     int relayNumber = topic.charAt(topic.length() - 1) - '0';
