@@ -87,7 +87,7 @@ void setup()
     }
 
     // // connect to the mqtt broker
-    client.connect("sparkclient");
+    client.connect("relay-hub");
 
     // publish/subscribe
     if (client.isConnected())
