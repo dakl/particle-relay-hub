@@ -104,7 +104,7 @@ POST /v1/devices/{DEVICE_ID}/pin
 curl https://api.particle.io/v1/devices/0123456789abcdef/pin \
 -d access_token=123412341234 -d params=1,1
 */
-int pinControl(String args)
+int relayControl(String args)
 {
     Particle.publish("set_state", "Setting state using args " + args, ttl);
     // parse the relay number
@@ -132,25 +132,25 @@ void setup()
     }
 
     // register control function
-    Particle.function("pin", pinControl);
+    Particle.function("relay", relayControl);
 
-    // connect to the mqtt broker
-    client.connect("relay-hub");
+    // // connect to the mqtt broker
+    // client.connect("relay-hub");
 
-    // publish/subscribe
-    if (client.isConnected())
-    {
-        Particle.publish("MQTT: connected", PRIVATE);
+    // // publish/subscribe
+    // if (client.isConnected())
+    // {
+    //     Particle.publish("MQTT: connected", PRIVATE);
 
-        client.publish(String(EVENTS_TOPIC_TEMPLATE) + "general", "Particle relay hub came online.");
-        client.subscribe(COMMANDS_TOPICS);
-    }
+    //     client.publish(String(EVENTS_TOPIC_TEMPLATE) + "general", "Particle relay hub came online.");
+    //     client.subscribe(COMMANDS_TOPICS);
+    // }
 
     ready();
 }
 
 void loop()
 {
-    if (client.isConnected())
-        client.loop();
+    // if (client.isConnected())
+    //     client.loop();
 }
