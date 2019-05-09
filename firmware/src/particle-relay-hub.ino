@@ -9,19 +9,12 @@
 // particle-relay-hub
 // ------------
 
-#include "MQTT.h"
-
 /* ======================= prototypes =============================== */
 
-void callback(char *topic, byte *payload, unsigned int length);
 int setState(int relayNumber, int relayState);
 
 /* ======================= main.ino ======================== */
 
-MQTT client("worker0", 1883, callback);
-
-char *COMMANDS_TOPICS = "commands/relay/#";
-char *EVENTS_TOPIC_TEMPLATE = "events/relay/";
 
 int PINS[] = {D3, D4, D5, D6};
 int STATES[] = {0, 0, 0, 0};
@@ -30,26 +23,6 @@ int FAILED_TO_PARSE_PIN = -100;
 int FAILED_TO_PARSE_STATE = -200;
 int ttl = 16777215;
 
-void callback(char *_topic, byte *payload, unsigned int length)
-{
-    char p[length + 1];
-    memcpy(p, payload, length);
-    p[length] = NULL;
-
-    String topic = String(_topic);
-    int relayNumber = topic.charAt(topic.length() - 1) - '0';
-
-    if (String("ON").equals(p))
-    {
-        setState(relayNumber, HIGH);
-        client.publish(String(EVENTS_TOPIC_TEMPLATE) + String(relayNumber), "ON");
-    }
-    else if (String("OFF").equals(p))
-    {
-        setState(relayNumber, LOW);
-        client.publish(String(EVENTS_TOPIC_TEMPLATE) + String(relayNumber), "OFF");
-    }
-}
 
 void reset_handler()
 {
@@ -134,23 +107,9 @@ void setup()
     // register control function
     Particle.function("relay", relayControl);
 
-    // // connect to the mqtt broker
-    // client.connect("relay-hub");
-
-    // // publish/subscribe
-    // if (client.isConnected())
-    // {
-    //     Particle.publish("MQTT: connected", PRIVATE);
-
-    //     client.publish(String(EVENTS_TOPIC_TEMPLATE) + "general", "Particle relay hub came online.");
-    //     client.subscribe(COMMANDS_TOPICS);
-    // }
-
     ready();
 }
 
 void loop()
 {
-    // if (client.isConnected())
-    //     client.loop();
 }
