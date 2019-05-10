@@ -74,7 +74,7 @@ command format: pin,state[0=LOW, 1=HIGH]
 examples: `1,1`, `4,0`
 POST /v1/devices/{DEVICE_ID}/pin
 # EXAMPLE REQUEST
-curl https://api.particle.io/v1/devices/0123456789abcdef/pin \
+curl https://api.particle.io/v1/devices/0123456789abcdef/relay \
 -d access_token=123412341234 -d params=1,1
 */
 int relayControl(String args)
